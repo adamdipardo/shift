@@ -16,6 +16,7 @@ add_action( 'customize_register', 'shift_customizer' );
 add_action( 'after_setup_theme', 'shift_image_sizes' );
 
 add_filter( 'body_class', 'shift_add_slug_body_class' );
+add_filter( 'post_thumbnail_html', 'shift_filter_thumbnail_https', 10 );
 
 // handle theme setup
 function setup_shift() {
@@ -195,4 +196,8 @@ function shift_add_slug_body_class( $classes ) {
 		$classes[] = $post->post_type . '-' . $post->post_name;
 	}
 	return $classes;
+}
+
+function shift_filter_thumbnail_https( $html ) {
+	return str_replace( "http://", "//", $html );
 }
